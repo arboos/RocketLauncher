@@ -6,13 +6,16 @@ public class MissileController : MonoBehaviour
 {
     [SerializeField] private float force;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
-    private bool launched = false;
+
+    public float timeToStopParticle; 
+    [HideInInspector] public float currentTimeToStopParticle;
+    
     public static MissileController Instance { get; private set; }
     
-    [HideInInspector] public bool isRotating = true;
     [HideInInspector] public ParticleSystem burnParticleSystem;
-    
+    [HideInInspector] public bool launched = false;
 
     void Awake()
     {
@@ -24,8 +27,10 @@ public class MissileController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         rb = GetComponent<Rigidbody2D>();
-        burnParticleSystem = transform.GetChild(0).GetComponent<ParticleSystem>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        burnParticleSystem = ParticleCollection.Instance.FireParticleRotation;
     }
 
     private void Update()
@@ -34,9 +39,12 @@ public class MissileController : MonoBehaviour
         
         if (launched)
         {
-            burnParticleSystem.Stop();
             if(GameManager.Instance.movement.y >= 0.3f) Burn();
         }
+
+        currentTimeToStopParticle -= Time.deltaTime;
+        if (currentTimeToStopParticle <= 0 && burnParticleSystem.isEmitting) burnParticleSystem.Stop();
+
     }
 
     public void Launch(float velocity)
@@ -54,13 +62,29 @@ public class MissileController : MonoBehaviour
         
         //UI Actions
         UIManager.Instance.distanceText.gameObject.SetActive(true);
+        
+        //Particle Actions
+        burnParticleSystem.Stop();
+        burnParticleSystem = ParticleCollection.Instance.FireParticleBurn;
     }
 
     public void Burn()
     {
         rb.AddForce(transform.up * force * Time.deltaTime, ForceMode2D.Force);
-        burnParticleSystem.Play();
         print("Burn!");
+
+    }
+
+    public void ParticleBurn()
+    {
+        if (!burnParticleSystem.isEmitting) burnParticleSystem.Play();
+        currentTimeToStopParticle = timeToStopParticle;
+    }
+
+    public void SetColor(Color color)
+    {
+        spriteRenderer.color = color;
+        print("Color changed!");
     }
 
 

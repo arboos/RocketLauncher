@@ -27,7 +27,7 @@ public class CameraFollow : MonoBehaviour
         if (follow)
         {
             float camSize = target.position.y + 5;
-            camSize = Mathf.Clamp(camSize, 7f, 25f);
+            camSize = Mathf.Clamp(camSize, 7f, 16f);
             
             transform.position = Vector3.Lerp(transform.position, offset + target.position, lerpSpeed * Time.deltaTime);
             

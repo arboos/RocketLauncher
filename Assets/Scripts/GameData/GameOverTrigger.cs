@@ -12,6 +12,10 @@ public class GameOverTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Invoke("GameOver", timeToInvoke);
+            MissileController.Instance.launched = false;
+            ParticleCollection.Instance.WaterBling.transform.position = MissileController.Instance.transform.position;
+            ParticleCollection.Instance.WaterBling.Play();
+            MissileController.Instance.SetColor(new Color(100, 200, 255));
         }
     }
 

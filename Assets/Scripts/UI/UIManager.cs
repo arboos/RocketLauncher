@@ -23,6 +23,6 @@ public class UIManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!MissileController.Instance.isRotating) distanceText.text = GameManager.Instance.Distance.ToString();
+        distanceText.text = GameManager.Instance.Distance.ToString();
     }
 }
