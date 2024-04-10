@@ -27,10 +27,15 @@ public class MissileController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        burnParticleSystem = ParticleCollection.Instance.FireParticleRotation;
         
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        burnParticleSystem = ParticleCollection.Instance.FireParticleRotation;
+
     }
 
     private void Update()
@@ -54,7 +59,7 @@ public class MissileController : MonoBehaviour
         print("Launch!");
         rb.gravityScale = 1;
         rb.angularVelocity = -400f;
-        rb.AddForce(transform.up * velocity / 20f, ForceMode2D.Impulse);
+        rb.AddForce(transform.up * velocity / 30f, ForceMode2D.Impulse);
         launched = true;
         
         //Camera Actions
