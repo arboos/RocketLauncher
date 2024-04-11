@@ -9,8 +9,8 @@ public class MissileController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
 
-    public float timeToStopParticle; 
-    [HideInInspector] public float currentTimeToStopParticle;
+    public float timeToStopBurn; 
+    [HideInInspector] public float currentTimeToStopBurn;
     
     public static MissileController Instance { get; private set; }
     
@@ -47,9 +47,15 @@ public class MissileController : MonoBehaviour
             if(GameManager.Instance.movement.y >= 0.3f) Burn();
         }
 
-        currentTimeToStopParticle -= Time.deltaTime;
-        if (currentTimeToStopParticle <= 0 && burnParticleSystem.isEmitting) burnParticleSystem.Stop();
+        currentTimeToStopBurn -= Time.deltaTime;
+        if (currentTimeToStopBurn <= 0)
+        {
+            if(burnParticleSystem.isEmitting)burnParticleSystem.Stop();
+            if(SoundsBaseCollection.Instance.burnSound.isPlaying) SoundsBaseCollection.Instance.burnSound.Stop();
+        }
 
+        
+        print(SoundsBaseCollection.Instance.burnSound.isPlaying);
     }
 
     public void Launch(float velocity)
@@ -71,19 +77,23 @@ public class MissileController : MonoBehaviour
         //Particle Actions
         burnParticleSystem.Stop();
         burnParticleSystem = ParticleCollection.Instance.FireParticleBurn;
+        
+        
+        //Audio Actions
+        SoundsBaseCollection.Instance.launchSound.Play();
     }
 
     public void Burn()
     {
         rb.AddForce(transform.up * force * Time.deltaTime, ForceMode2D.Force);
         print("Burn!");
-
     }
 
     public void ParticleBurn()
     {
         if (!burnParticleSystem.isEmitting) burnParticleSystem.Play();
-        currentTimeToStopParticle = timeToStopParticle;
+        if (!SoundsBaseCollection.Instance.burnSound.isPlaying) SoundsBaseCollection.Instance.burnSound.Play();
+        currentTimeToStopBurn = timeToStopBurn;
     }
 
     public void SetColor(Color color)

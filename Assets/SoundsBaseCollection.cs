@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class SoundsBaseCollection : MonoBehaviour
 {
-   
-    
     public static SoundsBaseCollection Instance { get; private set; }
+
+    public AudioSource burnSound;
+    public AudioSource launchSound;
     
     private void Awake()
     {
@@ -29,8 +30,6 @@ public class SoundsBaseCollection : MonoBehaviour
 
     private void SceneManagerOnactiveSceneChanged(Scene arg0, Scene arg1)
     {
-        loseSound.Stop();
-        
         Button[] buttons = GameObject.FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None); //Add click sound to all buttons
     }
 }

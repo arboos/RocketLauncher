@@ -452,8 +452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 1500
-  timeToStopParticle: 0.2
-  currentTimeToStopParticle: 0
+  timeToStopBurn: 0.3
+  currentTimeToStopBurn: 0
   burnParticleSystem: {fileID: 0}
   launched: 0
 --- !u!114 &124662790
@@ -5381,6 +5381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 270225890}
+  - component: {fileID: 270225891}
   m_Layer: 0
   m_Name: ___SOUNDS_BASE_COLLECTION___
   m_TagString: Untagged
@@ -5407,6 +5408,20 @@ Transform:
   - {fileID: 1858770180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &270225891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270225889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdff54a3da55aad49b3ae8867a54ffe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnSound: {fileID: 1001075609}
+  launchSound: {fileID: 1915788207}
 --- !u!1 &291916210
 GameObject:
   m_ObjectHideFlags: 0
@@ -10823,9 +10838,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 99999
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -11416,9 +11431,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 99999
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -17187,9 +17202,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 99999
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -17315,9 +17330,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 99999
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
