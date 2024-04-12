@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +8,8 @@ public class SoundsBaseCollection : MonoBehaviour
 
     public AudioSource burnSound;
     public AudioSource launchSound;
+    public AudioSource tickSound;
+    public AudioSource explosionSound;
     
     private void Awake()
     {
@@ -19,6 +18,7 @@ public class SoundsBaseCollection : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.activeSceneChanged += SceneManagerOnactiveSceneChanged;
+            burnSound.time = 0.3f;
         }
         else
         {

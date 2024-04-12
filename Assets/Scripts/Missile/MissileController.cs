@@ -83,6 +83,14 @@ public class MissileController : MonoBehaviour
         SoundsBaseCollection.Instance.launchSound.Play();
     }
 
+    public void Explode()
+    {
+        gameObject.SetActive(false);
+        SoundsBaseCollection.Instance.explosionSound.Play();
+        currentTimeToStopBurn = -1f;
+        SoundsBaseCollection.Instance.burnSound.Stop();
+    }
+
     public void Burn()
     {
         rb.AddForce(transform.up * force * Time.deltaTime, ForceMode2D.Force);

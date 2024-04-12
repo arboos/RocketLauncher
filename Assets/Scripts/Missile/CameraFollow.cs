@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -13,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 offset;
 
     private Camera camera;
+    private CinemachineVirtualCamera virtualCam;
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class CameraFollow : MonoBehaviour
         offset -= new Vector3(0f, 0f, 20f);
 
         camera = GetComponent<Camera>();
+        virtualCam = GetComponent<CinemachineVirtualCamera>();
     }
 
     private void Update()
@@ -31,7 +34,7 @@ public class CameraFollow : MonoBehaviour
             
             transform.position = Vector3.Lerp(transform.position, offset + target.position, lerpSpeed * Time.deltaTime);
             
-            camera.orthographicSize = camSize;
+             virtualCam.m_Lens.OrthographicSize = camSize;
         }
     }
 
