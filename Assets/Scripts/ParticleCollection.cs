@@ -6,8 +6,8 @@ public class ParticleCollection : MonoBehaviour
 
     public ParticleSystem FireParticleBurn;
     public ParticleSystem FireParticleRotation;
-    //public ParticleSystem LauchParticle;
-    public ParticleSystem WaterBling;
+    public ParticleSystem LauchParticle;
+    public ParticleSystem[] ExplosionParticles;
     
     private void Awake()
     {

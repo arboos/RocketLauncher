@@ -89,6 +89,12 @@ public class MissileController : MonoBehaviour
         SoundsBaseCollection.Instance.explosionSound.Play();
         currentTimeToStopBurn = -1f;
         SoundsBaseCollection.Instance.burnSound.Stop();
+        foreach (var par in ParticleCollection.Instance.ExplosionParticles)
+        {
+            par.transform.position = transform.position;
+            par.Play();
+        }
+
     }
 
     public void Burn()
