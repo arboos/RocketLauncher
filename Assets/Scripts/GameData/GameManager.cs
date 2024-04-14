@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
         
         if (movement.x >= 0.3f) Time.timeScale = 0.25f;
         else Time.timeScale = 1f;
-        
-        if(movement.y >= 0.3f) MissileController.Instance.ParticleBurn();
     }
 
     public void GameOver()

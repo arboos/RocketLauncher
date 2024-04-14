@@ -6,6 +6,7 @@ public class SoundsBaseCollection : MonoBehaviour
 {
     public static SoundsBaseCollection Instance { get; private set; }
 
+    public AudioSource rotatingSound;
     public AudioSource burnSound;
     public AudioSource launchSound;
     public AudioSource tickSound;

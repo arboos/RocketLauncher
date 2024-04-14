@@ -11,7 +11,7 @@ public class GroundCollider : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
-            MissileController.Instance.Explode();
+            StartCoroutine(MissileController.Instance.Explode());
         }
     }
     

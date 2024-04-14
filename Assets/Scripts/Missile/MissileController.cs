@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MissileController : MonoBehaviour
 {
@@ -50,12 +52,13 @@ public class MissileController : MonoBehaviour
         currentTimeToStopBurn -= Time.deltaTime;
         if (currentTimeToStopBurn <= 0)
         {
-            if(burnParticleSystem.isEmitting)burnParticleSystem.Stop();
+            if(burnParticleSystem.isEmitting) burnParticleSystem.Stop();
             if(SoundsBaseCollection.Instance.burnSound.isPlaying) SoundsBaseCollection.Instance.burnSound.Stop();
         }
 
         
         print(SoundsBaseCollection.Instance.burnSound.isPlaying);
+        print(SoundsBaseCollection.Instance.rotatingSound.isPlaying + " Rotation Sound");
     }
 
     public void Launch(float velocity)
@@ -81,9 +84,10 @@ public class MissileController : MonoBehaviour
         
         //Audio Actions
         SoundsBaseCollection.Instance.launchSound.Play();
+        SoundsBaseCollection.Instance.rotatingSound.Stop();
     }
 
-    public void Explode()
+    public IEnumerator Explode()
     {
         gameObject.SetActive(false);
         SoundsBaseCollection.Instance.explosionSound.Play();
@@ -91,22 +95,29 @@ public class MissileController : MonoBehaviour
         SoundsBaseCollection.Instance.burnSound.Stop();
         foreach (var par in ParticleCollection.Instance.ExplosionParticles)
         {
+            par.gameObject.SetActive(true);
             par.transform.position = transform.position;
             par.Play();
         }
 
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(0);
     }
 
     public void Burn()
     {
         rb.AddForce(transform.up * force * Time.deltaTime, ForceMode2D.Force);
-        print("Burn!");
+        ParticleBurn();
     }
 
     public void ParticleBurn()
     {
         if (!burnParticleSystem.isEmitting) burnParticleSystem.Play();
-        if (!SoundsBaseCollection.Instance.burnSound.isPlaying) SoundsBaseCollection.Instance.burnSound.Play();
+        if (!SoundsBaseCollection.Instance.burnSound.isPlaying)
+        {
+            SoundsBaseCollection.Instance.burnSound.time = 0.5f;
+            SoundsBaseCollection.Instance.burnSound.Play();
+        }
         currentTimeToStopBurn = timeToStopBurn;
     }
 
