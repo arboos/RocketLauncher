@@ -55,10 +55,6 @@ public class MissileController : MonoBehaviour
             if(burnParticleSystem.isEmitting) burnParticleSystem.Stop();
             if(SoundsBaseCollection.Instance.burnSound.isPlaying) SoundsBaseCollection.Instance.burnSound.Stop();
         }
-
-        
-        print(SoundsBaseCollection.Instance.burnSound.isPlaying);
-        print(SoundsBaseCollection.Instance.rotatingSound.isPlaying + " Rotation Sound");
     }
 
     public void Launch(float velocity)
@@ -85,6 +81,7 @@ public class MissileController : MonoBehaviour
         //Audio Actions
         SoundsBaseCollection.Instance.launchSound.Play();
         SoundsBaseCollection.Instance.rotatingSound.Stop();
+
     }
 
     public IEnumerator Explode()
@@ -99,6 +96,9 @@ public class MissileController : MonoBehaviour
             par.transform.position = transform.position;
             par.Play();
         }
+                
+        //RecordActions
+        RecordManager.Instance.SaveData();
 
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
