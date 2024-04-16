@@ -98,10 +98,12 @@ public class MissileController : MonoBehaviour
         }
                 
         //RecordActions
-        RecordManager.Instance.SaveData();
+        SaveManager.Instance.SaveData();
 
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
+        
+        
     }
 
     public void Burn()

@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using InstantGamesBridge;
+using InstantGamesBridge.Modules.Storage;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RecordManager : MonoBehaviour
@@ -21,12 +24,5 @@ public class RecordManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public void SaveData()
-    {
-        //SavePositions
-        
-        //SaveDistance
-        print("Data saved!");
-    }
+    
 }

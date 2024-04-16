@@ -1,0 +1,6 @@
+.text {
+    color: rgb(255, 255, 255);
+    -unity-font: url('project://database/Assets/Font/Montserrat-Medium.ttf?fileID=12800000&guid=7e5be26da986ce04c806ab53c7f0a55e&type=3#Montserrat-Medium');
+    -unity-font-definition: url('project://database/Assets/Font/Montserrat-Medium%20SDF.asset?fileID=11400000&guid=aba1cac25216609428ff99c9fe25e7ab&type=2#Montserrat-Medium SDF');
+    font-size: 64px;
+}
