@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class RecordLine : MonoBehaviour
 {
     [SerializeField] private Transform DynamicPart;
-    [SerializeField] private TextMeshProUGUI DistanceText;
+    public TextMeshProUGUI DistanceText;
 
     private void Update()
     {

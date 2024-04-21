@@ -1,13 +1,12 @@
-using System;
 using InstantGamesBridge;
 using InstantGamesBridge.Modules.Storage;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    
     public static SaveManager Instance { get; private set; }
+
+    public StorageType StorageTypeCurrent = StorageType.LocalStorage;
 
     private void Awake()
     {
@@ -19,6 +18,8 @@ public class SaveManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (Bridge.storage.IsSupported(StorageType.PlatformInternal)) StorageTypeCurrent = StorageType.PlatformInternal;
     }
 
     private void Start()
@@ -29,12 +30,42 @@ public class SaveManager : MonoBehaviour
     public void SaveData()
     {
         //SavePositions
-        Bridge.storage.Set("LastExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, StorageType.PlatformInternal);
+        Bridge.storage.Set("LastExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        Bridge.storage.Set("LastExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        if (GetFloat("BestExplosionFloat") < (int)(GameManager.Instance.Distance/10))
+        {
+            Bridge.storage.Set("BestExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("BestExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        }
     }
 
     public void LoadData()
     {
-        RecordManager.Instance.PreviousLaunchLine.transform.position = new Vector3(GetFloat("LastExplosion"), 0f, 0f);
+        //Record Lines
+        if (GetFloat("LastExplosion") != GetFloat("BestExplosion"))
+        {
+            RecordManager.Instance.PreviousLaunchLine.transform.position =
+                new Vector3(GetFloat("LastExplosion"), 0f, 0f);
+            RecordManager.Instance.PreviousLaunchLine.DistanceText.text =
+                GetFloat("LastExplosionFloat").ToString() + "m";
+            RecordManager.Instance.BestRecordLine.transform.position =
+                new Vector3(GetFloat("BestExplosion"), 0f, 0f);
+            RecordManager.Instance.BestRecordLine.DistanceText.text =
+                GetFloat("BestExplosionFloat").ToString() + "m";
+            print("if");
+        }
+        else
+        {
+            RecordManager.Instance.BestRecordLine.transform.position =
+                new Vector3(GetFloat("BestExplosion"), 0f, 0f);
+            RecordManager.Instance.BestRecordLine.DistanceText.text =
+                GetFloat("BestExplosionFloat").ToString() + "m";
+            print("else");
+        }
+        //UI Lines
+        UIManager.Instance.bestSlider.value = GetFloat("BestExplosionFloat") / 3000f;
+        UIManager.Instance.preciousSlider.value = GetFloat("LastExplosionFloat") / 3000f;
+
         print("Data loaded");
     }
     
@@ -68,7 +99,7 @@ public class SaveManager : MonoBehaviour
             if (success)
             {
                 print(data);
-                localVar = data == "True";
+                localVar = data == "true";
             }
             else
             {
@@ -85,8 +116,7 @@ public class SaveManager : MonoBehaviour
         {
             if (success)
             {
-                print(data);
-                localVar = float.Parse(data);
+                float.TryParse(data, out localVar);
             }
             else
             {
@@ -112,6 +142,7 @@ public class SaveManager : MonoBehaviour
             else
             {
                 // Данных по ключу level нет
+                print("NO DATA FOR GET!");
             }
         }
         else

@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using InstantGamesBridge;
-using InstantGamesBridge.Modules.Storage;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RecordManager : MonoBehaviour

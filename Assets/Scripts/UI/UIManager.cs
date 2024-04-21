@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI distanceText;
     [SerializeField] private Slider playerSlider;
+    public Slider bestSlider;
+    public Slider preciousSlider;
     
     public static UIManager Instance { get; private set; }
 
@@ -19,7 +21,6 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
-
         distanceText.text = "0";
     }
 
@@ -30,6 +31,5 @@ public class UIManager : MonoBehaviour
             distanceText.text = (GameManager.Instance.Distance / 10).ToString() + "m";
             playerSlider.value = MissileController.Instance.transform.position.x / 3000f;
         }
-
     }
 }
