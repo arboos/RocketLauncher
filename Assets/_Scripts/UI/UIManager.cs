@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider playerSlider;
     public Slider bestSlider;
     public Slider preciousSlider;
+    public RectTransform ScoreGrid;
+    public TextMeshProUGUI ScoreGridTextPrefab;
+    public TextMeshProUGUI ScoreText;
     
     public static UIManager Instance { get; private set; }
 
@@ -26,9 +29,11 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        ScoreText.text = GameManager.Instance.Score.ToString();
         if (MissileController.Instance.launched)
         {
             distanceText.text = (GameManager.Instance.Distance / 10).ToString() + "m";
+            ScoreText.text = ((GameManager.Instance.Distance / 10) + GameManager.Instance.Score).ToString();
             playerSlider.value = MissileController.Instance.transform.position.x / 3000f;
         }
     }

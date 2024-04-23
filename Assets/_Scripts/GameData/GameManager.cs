@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Vector2 movement;
 
     public int Distance;
+    public int DistanceDelta;
+    public int Score;
 
     private void Awake()
     {
@@ -27,7 +29,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         Distance = (int)((MissileController.Instance.transform.position.x + 9f) * 10f);
-        
+        DistanceDelta = (int)(Distance/10f) - DistanceDelta;
+        print(DistanceDelta);
+        DistanceDelta = (int)(MissileController.Instance.transform.position.x + 9f);
         if (movement.x >= 0.3f) Time.timeScale = 0.25f;
         else Time.timeScale = 1f;
     }

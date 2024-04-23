@@ -72,6 +72,7 @@ public class MissileController : MonoBehaviour
         
         //UI Actions
         UIManager.Instance.distanceText.gameObject.SetActive(true);
+        ScoreGridManager.Instance.AddScore(100, "Launch!");
         
         //Particle Actions
         burnParticleSystem.Stop();
