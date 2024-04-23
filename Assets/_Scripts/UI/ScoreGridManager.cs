@@ -22,12 +22,18 @@ public class ScoreGridManager : MonoBehaviour
         scoreGridText.transform.parent = UIManager.Instance.ScoreGrid;
         scoreGridText.text = count.ToString() + " " + text;
         GameManager.Instance.Score += count;
+        StartCoroutine(DeleteScorePrefab(scoreGridText.gameObject));
     }
     
     public void AddScore(int count)
     {
         GameManager.Instance.Score += count;
     }
-    
+
+    private IEnumerator DeleteScorePrefab(GameObject prefab)
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(prefab);
+    }
     
 }
