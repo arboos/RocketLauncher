@@ -1,3 +1,4 @@
+using System;
 using InstantGamesBridge;
 using InstantGamesBridge.Modules.Storage;
 using UnityEngine;
@@ -18,23 +19,42 @@ public class SaveManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (Bridge.storage.IsSupported(StorageType.PlatformInternal)) StorageTypeCurrent = StorageType.PlatformInternal;
+        
     }
 
     private void Start()
     {
+        print("START");
+        if (GetFloat("BestExplosion") <= 0)
+        {
+            Bridge.storage.Set("LastExplosion", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("LastExplosionFloat", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("BestExplosionFloat", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("BestExplosion", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
+        }
         LoadData();
     }
 
+    public void DeleteData()
+    {
+        Bridge.storage.Delete("LastExplosion");
+        Bridge.storage.Delete("LastExplosionFloat");
+        Bridge.storage.Delete("BestExplosionFloat");
+        Bridge.storage.Delete("BestExplosion");
+        print("Data deleted");
+    }
+    
     public void SaveData()
     {
         //SavePositions
         Bridge.storage.Set("LastExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        print("Data by key: " + "LastExplosion" + " has " + GetFloat("LastExplosion"));
         Bridge.storage.Set("LastExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        
         if (GetFloat("BestExplosionFloat") < (int)(GameManager.Instance.Distance/10))
         {
             Bridge.storage.Set("BestExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+            print("Data by key: " + "BEST EXPLOSION!!" + " has " + GetFloat("BestExplosion"));
             Bridge.storage.Set("BestExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
         }
     }
@@ -42,33 +62,27 @@ public class SaveManager : MonoBehaviour
     public void LoadData()
     {
         //Record Lines
-        if (GetFloat("LastExplosion") != GetFloat("BestExplosion"))
-        {
-            RecordManager.Instance.PreviousLaunchLine.transform.position =
+        RecordManager.Instance.PreviousLaunchLine.transform.position =
                 new Vector3(GetFloat("LastExplosion"), 0f, 0f);
-            RecordManager.Instance.PreviousLaunchLine.DistanceText.text =
+        print("Data by key(Load Data): " + "LastExplosion" + " has " + GetFloat("LastExplosion"));
+        RecordManager.Instance.PreviousLaunchLine.DistanceText.text =
                 GetFloat("LastExplosionFloat").ToString() + "m";
-            RecordManager.Instance.BestRecordLine.transform.position =
+        RecordManager.Instance.BestRecordLine.transform.position =
                 new Vector3(GetFloat("BestExplosion"), 0f, 0f);
-            RecordManager.Instance.BestRecordLine.DistanceText.text =
-                GetFloat("BestExplosionFloat").ToString() + "m";
-            print("if");
-        }
-        else
-        {
-            RecordManager.Instance.BestRecordLine.transform.position =
-                new Vector3(GetFloat("BestExplosion"), 0f, 0f);
-            RecordManager.Instance.BestRecordLine.DistanceText.text =
-                GetFloat("BestExplosionFloat").ToString() + "m";
-            print("else");
-        }
+        RecordManager.Instance.BestRecordLine.DistanceText.text = GetFloat("BestExplosionFloat").ToString() + "m";
+        print("L != B");
         //UI Lines
         UIManager.Instance.bestSlider.value = GetFloat("BestExplosionFloat") / 3000f;
         UIManager.Instance.preciousSlider.value = GetFloat("LastExplosionFloat") / 3000f;
 
         print("Data loaded");
     }
-    
+
+    private void OnApplicationQuit()
+    {
+        DeleteData();
+    }
+
 
     #region SaveMethods
     
@@ -128,7 +142,7 @@ public class SaveManager : MonoBehaviour
     
     private void OnStorageSetCompleted(bool success)
     {
-        Debug.Log($"OnStorageSetCompleted, success: {success}");
+        //Debug.Log($"OnStorageSetCompleted, success: {success}");
     }
     
     private void OnStorageGetCompleted(bool success, string data)

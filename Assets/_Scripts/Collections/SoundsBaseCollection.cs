@@ -11,6 +11,8 @@ public class SoundsBaseCollection : MonoBehaviour
     public AudioSource launchSound;
     public AudioSource tickSound;
     public AudioSource explosionSound;
+    public AudioSource cloudSound;
+    public AudioSource ringSound;
     
     private void Awake()
     {

@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     {
         Distance = (int)((MissileController.Instance.transform.position.x + 9f) * 10f);
         DistanceDelta = (int)(Distance/10f) - DistanceDelta;
-        print(DistanceDelta);
         DistanceDelta = (int)(MissileController.Instance.transform.position.x + 9f);
         if (movement.x >= 0.3f) Time.timeScale = 0.25f;
         else Time.timeScale = 1f;

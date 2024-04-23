@@ -6,7 +6,7 @@ using UnityEngine;
 public class PaticleByTrigger : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particle;
-    [SerializeField] private AudioSource sound;
+    [SerializeField] private SoundType sound;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,8 +16,22 @@ public class PaticleByTrigger : MonoBehaviour
             pos.position = other.transform.position;
             pos.position += new Vector3(2f, 0f, 0f);
             particle.Play();
-            sound.Play();
+            switch (sound)
+            {
+                case SoundType.Cloud:
+                    SoundsBaseCollection.Instance.cloudSound.Play();
+                    return;
+                    
+            }
         }
+        
+    }
+    
+    public enum SoundType
+    {
+        Cloud,
+        Ring
     }
 }
+
 
