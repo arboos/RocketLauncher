@@ -24,13 +24,15 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        print("START");
-        if (GetFloat("BestExplosion") <= 0)
+        if (GetFloat("Force") <= 0)
         {
-            Bridge.storage.Set("LastExplosion", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
-            Bridge.storage.Set("LastExplosionFloat", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
-            Bridge.storage.Set("BestExplosionFloat", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
-            Bridge.storage.Set("BestExplosion", -200, OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("LastExplosion", -200, OnStorageSetCompleted);
+            Bridge.storage.Set("LastExplosionFloat", -200, OnStorageSetCompleted);
+            Bridge.storage.Set("BestExplosionFloat", -200, OnStorageSetCompleted);
+            Bridge.storage.Set("BestExplosion", -200, OnStorageSetCompleted);
+            Bridge.storage.Set("Force", 1, OnStorageSetCompleted);
+            Bridge.storage.Set("Fuel", 1, OnStorageSetCompleted);
+            Bridge.storage.Set("Magnet", 1, OnStorageSetCompleted);
         }
         LoadData();
     }
@@ -47,15 +49,15 @@ public class SaveManager : MonoBehaviour
     public void SaveData()
     {
         //SavePositions
-        Bridge.storage.Set("LastExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        Bridge.storage.Set("LastExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted);
         print("Data by key: " + "LastExplosion" + " has " + GetFloat("LastExplosion"));
-        Bridge.storage.Set("LastExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+        Bridge.storage.Set("LastExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted);
         
         if (GetFloat("BestExplosionFloat") < (int)(GameManager.Instance.Distance/10))
         {
-            Bridge.storage.Set("BestExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("BestExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted);
             print("Data by key: " + "BEST EXPLOSION!!" + " has " + GetFloat("BestExplosion"));
-            Bridge.storage.Set("BestExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted, Bridge.storage.defaultType);
+            Bridge.storage.Set("BestExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted);
         }
     }
 
@@ -71,9 +73,12 @@ public class SaveManager : MonoBehaviour
                 new Vector3(GetFloat("BestExplosion"), 0f, 0f);
         RecordManager.Instance.BestRecordLine.DistanceText.text = GetFloat("BestExplosionFloat").ToString() + "m";
         print("L != B");
+        
         //UI Lines
         UIManager.Instance.bestSlider.value = GetFloat("BestExplosionFloat") / 3000f;
         UIManager.Instance.preciousSlider.value = GetFloat("LastExplosionFloat") / 3000f;
+        UIManager.Instance.BestScoreDATA.text = ((int)GetFloat("BestExplosion")).ToString() + "m";
+        UIManager.Instance.PreviousScoreDATA.text = ((int)GetFloat("LastExplosion")).ToString() + "m";
 
         print("Data loaded");
     }
@@ -85,6 +90,11 @@ public class SaveManager : MonoBehaviour
 
 
     #region SaveMethods
+
+    public void Save(string key, string value)
+    {
+        Bridge.storage.Set(key, value, OnStorageSetCompleted);
+    }
     
     public string GetString(string key)
     {
@@ -131,6 +141,23 @@ public class SaveManager : MonoBehaviour
             if (success)
             {
                 float.TryParse(data, out localVar);
+            }
+            else
+            {
+                Debug.LogError($"No data from key {key}!");
+            }
+        });
+        return localVar;
+    }
+    
+    public int GetInt(string key)
+    {
+        int localVar = 0;
+        Bridge.storage.Get(key, (success, data) =>
+        {
+            if (success)
+            {
+                int.TryParse(data, out localVar);
             }
             else
             {

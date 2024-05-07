@@ -10,6 +10,8 @@ public class MissileController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
+    public float CurrentFuel;
+
 
     public float timeToStopBurn; 
     [HideInInspector] public float currentTimeToStopBurn;
@@ -44,8 +46,13 @@ public class MissileController : MonoBehaviour
     {
         if (transform.position.y <= -50f) GameManager.Instance.GameOver();
         
+        
         if (launched)
         {
+            if (rb.velocity.x > 60f || rb.velocity.y > 60f)
+            {
+                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -100f, 100f), Mathf.Clamp(rb.velocity.y, -100f, 100f));
+            }
             if(GameManager.Instance.movement.y >= 0.3f) Burn();
         }
 
@@ -71,7 +78,8 @@ public class MissileController : MonoBehaviour
         Camera.main.GetComponent<CameraFollow>().follow = true;
         
         //UI Actions
-        UIManager.Instance.distanceText.gameObject.SetActive(true);
+        UIManager.Instance.Gameplay.gameObject.SetActive(true);
+        UIManager.Instance.Menu.gameObject.SetActive(false);
         ScoreGridManager.Instance.AddScore(100, "Launch!");
         
         //Particle Actions
@@ -109,8 +117,12 @@ public class MissileController : MonoBehaviour
 
     public void Burn()
     {
-        rb.AddForce(transform.up * force * Time.deltaTime, ForceMode2D.Force);
-        ParticleBurn();
+        if (CurrentFuel > 0)
+        {
+            CurrentFuel -= Time.deltaTime;
+            rb.AddForce(transform.up * ((force + (125f * GameManager.Instance.ForceLevel)) * Time.deltaTime), ForceMode2D.Force);
+            ParticleBurn();
+        }
     }
 
     public void ParticleBurn()

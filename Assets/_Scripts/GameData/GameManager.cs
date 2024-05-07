@@ -13,6 +13,14 @@ public class GameManager : MonoBehaviour
     public int Distance;
     public int DistanceDelta;
     public int Score;
+    
+    public int Coins;
+
+    public int ForceLevel;
+    public int FuelLevel;
+    public int MagnetLevel;
+
+    public bool Gameplay;
 
     private void Awake()
     {
@@ -31,7 +39,11 @@ public class GameManager : MonoBehaviour
         Distance = (int)((MissileController.Instance.transform.position.x + 9f) * 10f);
         DistanceDelta = (int)(Distance/10f) - DistanceDelta;
         DistanceDelta = (int)(MissileController.Instance.transform.position.x + 9f);
-        if (movement.x >= 0.3f) Time.timeScale = 0.25f;
+        if (movement.x >= 0.3f && MissileController.Instance.CurrentFuel > 0f)
+        {
+            Time.timeScale = 0.25f;
+            MissileController.Instance.CurrentFuel -= Time.deltaTime * 4f;
+        }
         else Time.timeScale = 1f;
     }
 
