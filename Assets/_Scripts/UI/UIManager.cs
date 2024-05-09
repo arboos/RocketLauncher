@@ -37,12 +37,18 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         ScoreText.text = GameManager.Instance.Score.ToString();
-        FuelFill.fillAmount = MissileController.Instance.CurrentFuel / 50f;
+        FuelFill.fillAmount = MissileController.Instance.CurrentFuel / 30f;
         if (MissileController.Instance.launched)
         {
             distanceText.text = Mathf.Abs(GameManager.Instance.Distance / 10).ToString() + "m";
             ScoreText.text = ((GameManager.Instance.Distance / 10) + GameManager.Instance.Score).ToString();
             playerSlider.value = MissileController.Instance.transform.position.x / 3000f;
+        }
+
+        if (GameManager.Instance.Gameplay)
+        {
+            Gameplay.SetActive(true);
+            Menu.SetActive(false);
         }
     }
 }

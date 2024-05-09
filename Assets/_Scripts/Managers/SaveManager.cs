@@ -79,6 +79,11 @@ public class SaveManager : MonoBehaviour
         UIManager.Instance.preciousSlider.value = GetFloat("LastExplosionFloat") / 3000f;
         UIManager.Instance.BestScoreDATA.text = ((int)GetFloat("BestExplosion")).ToString() + "m";
         UIManager.Instance.PreviousScoreDATA.text = ((int)GetFloat("LastExplosion")).ToString() + "m";
+        
+        //Gameplay
+        GameManager.Instance.ForceLevel = GetInt("Force");
+        GameManager.Instance.FuelLevel = GetInt("Fuel");
+        GameManager.Instance.MagnetLevel = GetInt("Magnet");
 
         print("Data loaded");
     }

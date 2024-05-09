@@ -52,7 +52,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void OnMove(InputAction.CallbackContext context) => movement = context.ReadValue<Vector2>();
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        movement = context.ReadValue<Vector2>();
+        Gameplay = true;
+    }
 
     public void OnBurn(InputAction.CallbackContext context) => print(context.ReadValue<float>());
 }

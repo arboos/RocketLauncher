@@ -36,6 +36,7 @@ public class MissileController : MonoBehaviour
     private void Start()
     {
         burnParticleSystem = ParticleCollection.Instance.FireParticleRotation;
+        CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
         
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
