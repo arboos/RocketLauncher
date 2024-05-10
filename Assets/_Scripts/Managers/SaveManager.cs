@@ -53,12 +53,14 @@ public class SaveManager : MonoBehaviour
         print("Data by key: " + "LastExplosion" + " has " + GetFloat("LastExplosion"));
         Bridge.storage.Set("LastExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted);
         
-        if (GetFloat("BestExplosionFloat") < (int)(GameManager.Instance.Distance/10))
+        if (GetFloat("BestExplosionFloat") < (GameManager.Instance.Distance/10))
         {
             Bridge.storage.Set("BestExplosionFloat", ((int)(GameManager.Instance.Distance/10)).ToString(), OnStorageSetCompleted);
             print("Data by key: " + "BEST EXPLOSION!!" + " has " + GetFloat("BestExplosion"));
             Bridge.storage.Set("BestExplosion", MissileController.Instance.transform.position.x.ToString(), OnStorageSetCompleted);
         }
+        
+        Bridge.storage.Set("Coins", GameManager.Instance.Coins.ToString());
     }
 
     public void LoadData()
@@ -81,6 +83,8 @@ public class SaveManager : MonoBehaviour
         UIManager.Instance.PreviousScoreDATA.text = ((int)GetFloat("LastExplosion")).ToString() + "m";
         
         //Gameplay
+        GameManager.Instance.Coins = GetInt("Coins");
+        
         GameManager.Instance.ForceLevel = GetInt("Force");
         GameManager.Instance.FuelLevel = GetInt("Fuel");
         GameManager.Instance.MagnetLevel = GetInt("Magnet");
