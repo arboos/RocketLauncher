@@ -7485,7 +7485,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.9
+  m_fontSize: 27.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -42629,6 +42629,9 @@ MonoBehaviour:
   FuelFill: {fileID: 1983868414}
   BestScoreDATA: {fileID: 1960319714}
   PreviousScoreDATA: {fileID: 327962583}
+  AfterGameBanner: {fileID: 7557824376160289489}
+  BannerCoins: {fileID: 7557824377330601427}
+  BannerDistance: {fileID: 7557824377355824963}
 --- !u!1 &448678348
 GameObject:
   m_ObjectHideFlags: 0
@@ -54356,6 +54359,7 @@ MonoBehaviour:
   DistanceDelta: 0
   Score: 0
   Coins: 40
+  LocalCoins: 0
   ForceLevel: 2
   FuelLevel: 1
   MagnetLevel: 1
@@ -94855,7 +94859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7557824376160289494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95730,7 +95734,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.35
+  m_fontSize: 65.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

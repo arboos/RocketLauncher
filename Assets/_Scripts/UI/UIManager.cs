@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI BestScoreDATA;
     public TextMeshProUGUI PreviousScoreDATA;
+
+    public GameObject AfterGameBanner;
+    public TextMeshProUGUI BannerCoins;
+    public TextMeshProUGUI BannerDistance;
     
     public static UIManager Instance { get; private set; }
 

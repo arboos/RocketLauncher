@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int Score;
     
     public int Coins;
+    public int LocalCoins;
 
     public int ForceLevel;
     public int FuelLevel;
@@ -46,7 +47,18 @@ public class GameManager : MonoBehaviour
         }
         else Time.timeScale = 1f;
     }
+    
+    public void AddLocalCoins(int count)
+    {
+        LocalCoins += count;
+    }
 
+    public void AddCoins(int count)
+    {
+        Coins += count;
+        SaveManager.Instance.Save("Coins", Coins.ToString());
+    }
+    
     public void GameOver()
     {
         SceneManager.LoadScene(0);
