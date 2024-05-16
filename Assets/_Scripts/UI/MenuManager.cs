@@ -39,7 +39,7 @@ public class MenuManager : MonoBehaviour
         {
             GameManager.Instance.Coins -= price;
             GameManager.Instance.ForceLevel++;
-            SaveManager.Instance.Save("Force", GameManager.Instance.ForceLevel.ToString());
+            // 1 SaveManager.Instance.Save("Force", GameManager.Instance.ForceLevel.ToString());
             UpdateMenuUI();
         }
     }
@@ -51,7 +51,7 @@ public class MenuManager : MonoBehaviour
         {
             GameManager.Instance.Coins -= price;
             GameManager.Instance.FuelLevel++;
-            SaveManager.Instance.Save("Fuel", GameManager.Instance.FuelLevel.ToString());
+            // 1 SaveManager.Instance.Save("Fuel", GameManager.Instance.FuelLevel.ToString());
             MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
             UpdateMenuUI();
         }
@@ -64,7 +64,7 @@ public class MenuManager : MonoBehaviour
         {
             GameManager.Instance.Coins -= price;
             GameManager.Instance.MagnetLevel++;
-            SaveManager.Instance.Save("Magnet", GameManager.Instance.MagnetLevel.ToString());
+            // 1 SaveManager.Instance.Save("Magnet", GameManager.Instance.MagnetLevel.ToString());
             UpdateMenuUI();
         }
     }
@@ -95,6 +95,7 @@ public class MenuManager : MonoBehaviour
     public void StartGameplay()
     {
         GameManager.Instance.Gameplay = true;
+        MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
     }
     
 }

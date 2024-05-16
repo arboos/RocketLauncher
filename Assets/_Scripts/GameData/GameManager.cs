@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int count)
     {
         Coins += count;
-        SaveManager.Instance.Save("Coins", Coins.ToString());
+        //SaveManager.Instance.Save("Coins", Coins.ToString()); 1
     }
     
     public void GameOver()
@@ -67,7 +67,11 @@ public class GameManager : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
-        Gameplay = true;
+        if (!Gameplay)
+        {
+            Gameplay = true;
+            MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
+        }
     }
 
     public void OnBurn(InputAction.CallbackContext context) => print(context.ReadValue<float>());

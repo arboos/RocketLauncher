@@ -13,6 +13,9 @@ public class SoundsBaseCollection : MonoBehaviour
     public AudioSource explosionSound;
     public AudioSource cloudSound;
     public AudioSource ringSound;
+    public AudioSource bubbleSound;
+    public AudioSource coinSound;
+    
     
     private void Awake()
     {

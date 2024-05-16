@@ -36,7 +36,6 @@ public class MissileController : MonoBehaviour
     private void Start()
     {
         burnParticleSystem = ParticleCollection.Instance.FireParticleRotation;
-        CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
         
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -100,23 +99,31 @@ public class MissileController : MonoBehaviour
         SoundsBaseCollection.Instance.explosionSound.Play();
         currentTimeToStopBurn = -1f;
         SoundsBaseCollection.Instance.burnSound.Stop();
+        
         foreach (var par in ParticleCollection.Instance.ExplosionParticles)
         {
             par.gameObject.SetActive(true);
             par.transform.position = transform.position;
             par.Play();
         }
+
+        float Sc = GameManager.Instance.Score + GameManager.Instance.DistanceDelta;
+        
+        GameManager.Instance.AddLocalCoins((int)(Sc / 9f));
+        print(GameManager.Instance.LocalCoins);
         
         UIManager.Instance.AfterGameBanner.SetActive(true);
         UIManager.Instance.BannerCoins.text = GameManager.Instance.LocalCoins.ToString();
         UIManager.Instance.BannerDistance.text = (GameManager.Instance.Distance / 10).ToString() + "m";
+        
         GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins);
+        GameManager.Instance.LocalCoins = 0;
         
         //RecordActions
-        SaveManager.Instance.SaveData();
+        //SaveManager.Instance.SaveData(); 1
 
         yield return new WaitForSeconds(4.3f);
-        print("LOAD");
+        
         SceneManager.LoadScene(0);
     }
     
