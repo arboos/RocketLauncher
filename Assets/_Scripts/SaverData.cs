@@ -5,8 +5,6 @@ using YG;
 public class SaverData : MonoBehaviour
 {
 
-    [SerializeField] private TextMeshProUGUI test;
-
     // Подписываемся на событие GetDataEvent в OnEnable
     private void OnEnable() => YandexGame.GetDataEvent += GetLoad;
 
@@ -56,11 +54,6 @@ public class SaverData : MonoBehaviour
         // Получаем данные из плагина и делаем с ними что хотим
         // Например, мы хотил записать в компонент UI.Text сколько у игрока монет:
         //textMoney.text = YandexGame.savesData.money.ToString();
-    }
-
-    private void Update()
-    {
-        test.text = YandexGame.savesData.lastFlag.ToString();
     }
 
     // Допустим, это Ваш метод для сохранения

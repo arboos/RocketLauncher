@@ -1,0 +1,19 @@
+{
+    "idSave": 4,
+    "isFirstSession": false,
+    "language": "en",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "lastFlag": 40,
+    "bestFlag": 665,
+    "coins": 194,
+    "force": 1,
+    "fuel": 1,
+    "magnet": 1
+}
