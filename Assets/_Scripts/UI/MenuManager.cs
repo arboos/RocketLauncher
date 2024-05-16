@@ -5,6 +5,7 @@ using InstantGamesBridge;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class MenuManager : MonoBehaviour
 {
@@ -39,7 +40,10 @@ public class MenuManager : MonoBehaviour
         {
             GameManager.Instance.Coins -= price;
             GameManager.Instance.ForceLevel++;
-            // 1 SaveManager.Instance.Save("Force", GameManager.Instance.ForceLevel.ToString());
+            
+            YandexGame.savesData.force = GameManager.Instance.ForceLevel;
+            YandexGame.SaveProgress();
+            
             UpdateMenuUI();
         }
     }
@@ -53,6 +57,10 @@ public class MenuManager : MonoBehaviour
             GameManager.Instance.FuelLevel++;
             // 1 SaveManager.Instance.Save("Fuel", GameManager.Instance.FuelLevel.ToString());
             MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
+            
+            YandexGame.savesData.fuel = GameManager.Instance.FuelLevel;
+            YandexGame.SaveProgress();
+            
             UpdateMenuUI();
         }
     }
@@ -65,6 +73,10 @@ public class MenuManager : MonoBehaviour
             GameManager.Instance.Coins -= price;
             GameManager.Instance.MagnetLevel++;
             // 1 SaveManager.Instance.Save("Magnet", GameManager.Instance.MagnetLevel.ToString());
+            
+            YandexGame.savesData.magnet = GameManager.Instance.MagnetLevel;
+            YandexGame.SaveProgress();
+            
             UpdateMenuUI();
         }
     }
@@ -90,6 +102,12 @@ public class MenuManager : MonoBehaviour
             if (butt.interactable) butt.GetComponent<Image>().sprite = ActiveButton; 
             else butt.GetComponent<Image>().sprite = DisabledButton;
         }
+
+        #region Govnokod
+
+        
+
+        #endregion
     }
 
     public void StartGameplay()

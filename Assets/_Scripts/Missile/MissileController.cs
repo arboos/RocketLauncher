@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class MissileController : MonoBehaviour
 {
@@ -120,7 +121,7 @@ public class MissileController : MonoBehaviour
         GameManager.Instance.LocalCoins = 0;
         
         //RecordActions
-        //SaveManager.Instance.SaveData(); 1
+        DoSave();
 
         yield return new WaitForSeconds(4.3f);
         
@@ -152,6 +153,20 @@ public class MissileController : MonoBehaviour
     {
         spriteRenderer.color = color;
         print("Color changed!");
+    }
+
+    public void DoSave()
+    {
+        YandexGame.savesData.lastFlag = (int)transform.position.x;
+
+        if (YandexGame.savesData.bestFlag < (int)transform.position.x)
+        {
+            YandexGame.savesData.bestFlag = (int)transform.position.x;
+        }
+
+        YandexGame.savesData.coins = GameManager.Instance.Coins;
+        
+        YandexGame.SaveProgress();
     }
 
 
