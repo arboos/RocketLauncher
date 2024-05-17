@@ -76,7 +76,9 @@ public class MenuManager : MonoBehaviour
             
             YandexGame.savesData.magnet = GameManager.Instance.MagnetLevel;
             YandexGame.SaveProgress();
-            
+
+            MissileController.Instance.missileMagnet.GetComponent<CircleCollider2D>().radius =
+                20f * GameManager.Instance.MagnetLevel;
             UpdateMenuUI();
         }
     }

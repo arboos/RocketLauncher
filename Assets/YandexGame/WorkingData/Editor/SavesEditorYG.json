@@ -1,5 +1,5 @@
 {
-    "idSave": 18,
+    "idSave": 20,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -15,5 +15,5 @@
     "coins": 443,
     "force": 5,
     "fuel": 5,
-    "magnet": 4
+    "magnet": 6
 }

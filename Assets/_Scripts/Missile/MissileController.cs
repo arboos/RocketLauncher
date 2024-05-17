@@ -22,6 +22,8 @@ public class MissileController : MonoBehaviour
     [HideInInspector] public ParticleSystem burnParticleSystem;
     [HideInInspector] public bool launched = false;
 
+    public MissileMagnet missileMagnet;
+
     void Awake()
     {
         if (Instance == null)
@@ -40,6 +42,10 @@ public class MissileController : MonoBehaviour
         
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        missileMagnet = missileMagnet.GetComponent<MissileMagnet>();
+        
+        missileMagnet.GetComponent<CircleCollider2D>().radius =
+            20f * GameManager.Instance.MagnetLevel;
 
     }
 

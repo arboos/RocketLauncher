@@ -9,7 +9,10 @@ public class ZoneCollider : MonoBehaviour
     [SerializeField] private string text;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        ScoreGridManager.Instance.AddScore(count, text);
-        Destroy(gameObject);
+        if (other.CompareTag("Player"))
+        {
+            ScoreGridManager.Instance.AddScore(count, text);
+            Destroy(gameObject);
+        }
     }
 }
