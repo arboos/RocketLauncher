@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int count)
     {
         Coins += count;
-        //SaveManager.Instance.Save("Coins", Coins.ToString()); 1
     }
     
     public void GameOver()

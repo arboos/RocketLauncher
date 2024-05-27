@@ -1,9 +1,24 @@
+using System;
 using UnityEngine;
 using YG;
 
 public class RewardedAwards : MonoBehaviour
 {
-// Подписываемся на событие открытия рекламы в OnEnable
+    public static RewardedAwards Instance { get; private set; }
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Подписываемся на событие открытия рекламы в OnEnable
         private void OnEnable() => YandexGame.RewardVideoEvent += Rewarded;
 
 // Отписываемся от события открытия рекламы в OnDisable
@@ -22,6 +37,9 @@ public class RewardedAwards : MonoBehaviour
         
             else if (id == 3)
                 GameManager.Instance.MagnetLevel++;
+            
+            else if (id == 4)
+                GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins * 2);
         }
     
     }
