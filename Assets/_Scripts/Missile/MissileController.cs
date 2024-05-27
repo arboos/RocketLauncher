@@ -121,17 +121,13 @@ public class MissileController : MonoBehaviour
         
         UIManager.Instance.AfterGameBanner.SetActive(true);
         UIManager.Instance.BannerCoins.text = GameManager.Instance.LocalCoins.ToString();
+        UIManager.Instance.BannerCoinsDouble.text = (GameManager.Instance.LocalCoins * 2).ToString() + " Coins!";
         UIManager.Instance.BannerDistance.text = (GameManager.Instance.Distance / 10).ToString() + "m";
         
-        GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins);
-        GameManager.Instance.LocalCoins = 0;
         
         //RecordActions
         DoSave();
-
-        yield return new WaitForSeconds(4.3f);
-        
-        SceneManager.LoadScene(0);
+         yield return new WaitForEndOfFrame();
     }
     
     public void Burn()

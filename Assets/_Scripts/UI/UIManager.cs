@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject AfterGameBanner;
     public TextMeshProUGUI BannerCoins;
+    public TextMeshProUGUI BannerCoinsDouble;
     public TextMeshProUGUI BannerDistance;
     
     public static UIManager Instance { get; private set; }
