@@ -163,6 +163,7 @@ public class MissileController : MonoBehaviour
         if (YandexGame.savesData.bestFlag < (int)transform.position.x)
         {
             YandexGame.savesData.bestFlag = (int)transform.position.x;
+            YandexGame.NewLeaderboardScores("Distance", (int)transform.position.x);
         }
 
         YandexGame.savesData.coins = GameManager.Instance.Coins;
