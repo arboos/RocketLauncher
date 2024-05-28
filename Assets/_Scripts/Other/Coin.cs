@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
         while (Vector2.Distance(transform.position, MissileController.Instance.transform.position) > 1)
         {
             transform.position = Vector2.MoveTowards(transform.position, MissileController.Instance.transform.position,
-                Time.deltaTime * 100f);
+                Time.deltaTime * 200f);
             yield return new WaitForEndOfFrame();
         }
         ScoreGridManager.Instance.AddScore(25, "Coin");

@@ -34,9 +34,21 @@ public class MenuManager : MonoBehaviour
         FuelBuy.onClick.AddListener(delegate { BoostFuel(); });
         MagnetBuy.onClick.AddListener(delegate { BoostMagnet(); });
         
+        ForceBuyAdv.onClick.AddListener(delegate { RewardedButton(1); });
+        FuelBuyAdv.onClick.AddListener(delegate { RewardedButton(2); });
+        MagnetBuyAdv.onClick.AddListener(delegate { RewardedButton(3); });
+        
         Invoke("UpdateMenuUI", 0.1f);
     }
 
+    public void RewardedButton(int rewardID)
+    {
+        YandexGame.RewVideoShow(rewardID);
+        
+        YandexGame.SaveProgress();
+        UpdateMenuUI();
+    }
+    
     public void BoostForce()
     {
         int price = Prices[GameManager.Instance.ForceLevel - 1];
@@ -90,18 +102,50 @@ public class MenuManager : MonoBehaviour
     private void UpdateMenuUI()
     {
         coinsText.text = GameManager.Instance.Coins.ToString();
+
+        if (GameManager.Instance.ForceLevel >= 10)
+        {
+            ForceBuy.gameObject.SetActive(false);
+            ForceBuyAdv.gameObject.SetActive(false);
+        }
+        else
+        {
+            ForceBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
+            ForceBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.ForceLevel - 1].ToString().ToString();
+        }
+        
+        if (GameManager.Instance.FuelLevel >= 10)
+        {
+            FuelBuy.gameObject.SetActive(false);
+            FuelBuyAdv.gameObject.SetActive(false);
+        }
+        else
+        {
+            FuelBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.FuelLevel - 1].ToString().ToString();
+            FuelBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
+        }
+        
+        if (GameManager.Instance.MagnetLevel >= 10)
+        {
+            MagnetBuy.gameObject.SetActive(false);
+            MagnetBuyAdv.gameObject.SetActive(false);
+        }
+
+        else
+        {
+            
+            MagnetBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.MagnetLevel - 1].ToString().ToString();
+        
+            MagnetBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
+        }
+
+        if (GameManager.Instance.FuelLevel >= 10 || GameManager.Instance.ForceLevel >= 10 ||
+            GameManager.Instance.MagnetLevel >= 10) return;
         
         ForceBuy.interactable = GameManager.Instance.Coins >= Prices[GameManager.Instance.ForceLevel - 1];
         FuelBuy.interactable = GameManager.Instance.Coins >= Prices[GameManager.Instance.FuelLevel - 1];
         MagnetBuy.interactable = GameManager.Instance.Coins >= Prices[GameManager.Instance.MagnetLevel - 1];
         
-        ForceBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.ForceLevel - 1].ToString().ToString();
-        FuelBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.FuelLevel - 1].ToString().ToString();
-        MagnetBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.MagnetLevel - 1].ToString().ToString();
-
-        ForceBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
-        FuelBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
-        MagnetBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
 
         foreach (var butt in Buttons)
         {

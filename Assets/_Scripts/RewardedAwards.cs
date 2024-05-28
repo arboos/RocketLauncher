@@ -27,17 +27,24 @@ public class RewardedAwards : MonoBehaviour
 // Подписанный метод получения награды
         void Rewarded(int id)
         {
-            // Если ID = 1, то выдаём "+100 монет"
             if (id == 1)
+            {
                 GameManager.Instance.ForceLevel++;
-
-            // Если ID = 2, то выдаём "+оружие".
-            else if (id == 2)
-                GameManager.Instance.FuelLevel++;
-        
-            else if (id == 3)
-                GameManager.Instance.MagnetLevel++;
+                YandexGame.savesData.force = GameManager.Instance.ForceLevel;
+            }
             
+            else if (id == 2)
+            {
+                GameManager.Instance.FuelLevel++;
+                YandexGame.savesData.fuel = GameManager.Instance.FuelLevel;
+            }
+
+            else if (id == 3)
+            {
+                GameManager.Instance.MagnetLevel++;
+                YandexGame.savesData.magnet = GameManager.Instance.MagnetLevel;
+            }
+
             else if (id == 4)
             {
                 GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins * 2);
