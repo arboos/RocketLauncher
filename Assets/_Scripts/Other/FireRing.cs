@@ -14,7 +14,7 @@ public class FireRing : MonoBehaviour
             MissileController.Instance.gameObject.GetComponent<Rigidbody2D>().AddForce(force.normalized * 30f, ForceMode2D.Impulse);
             SoundsBaseCollection.Instance.launchSound.Play();
             print("Forced");
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
 }

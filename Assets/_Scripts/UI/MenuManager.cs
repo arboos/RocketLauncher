@@ -14,6 +14,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button ForceBuy;
     [SerializeField] private Button FuelBuy;
     [SerializeField] private Button MagnetBuy;
+    
+    [SerializeField] private Button ForceBuyAdv;
+    [SerializeField] private Button FuelBuyAdv;
+    [SerializeField] private Button MagnetBuyAdv;
 
     [SerializeField] private TextMeshProUGUI coinsText;
 
@@ -107,8 +111,39 @@ public class MenuManager : MonoBehaviour
 
         #region Govnokod
 
-        
+        if (!ForceBuy.interactable)
+        {
+            ForceBuy.gameObject.SetActive(false);
+            ForceBuyAdv.gameObject.SetActive(true);
+        }
+        else
+        {
+            ForceBuy.gameObject.SetActive(true);
+            ForceBuyAdv.gameObject.SetActive(false);
+        }
 
+        if (!FuelBuy.interactable)
+        {
+            FuelBuy.gameObject.SetActive(false);
+            FuelBuyAdv.gameObject.SetActive(true);
+        }
+        else
+        {
+            FuelBuy.gameObject.SetActive(true);
+            FuelBuyAdv.gameObject.SetActive(false);
+        }
+        
+        if (!MagnetBuy.interactable)
+        {
+            MagnetBuy.gameObject.SetActive(false);
+            MagnetBuyAdv.gameObject.SetActive(true);
+        }
+        
+        else
+        {
+            MagnetBuy.gameObject.SetActive(true);
+            MagnetBuyAdv.gameObject.SetActive(false);
+        }
         #endregion
     }
 
