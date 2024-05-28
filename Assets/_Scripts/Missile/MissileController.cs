@@ -117,7 +117,6 @@ public class MissileController : MonoBehaviour
         float Sc = GameManager.Instance.Score + GameManager.Instance.DistanceDelta;
         
         GameManager.Instance.AddLocalCoins((int)(Sc / 9f));
-        print(GameManager.Instance.LocalCoins);
         
         UIManager.Instance.AfterGameBanner.SetActive(true);
         UIManager.Instance.BannerCoins.text = GameManager.Instance.LocalCoins.ToString();
@@ -127,7 +126,7 @@ public class MissileController : MonoBehaviour
         
         //RecordActions
         DoSave();
-         yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
     }
     
     public void Burn()
