@@ -16,7 +16,8 @@ public class AfterGameBanner : MonoBehaviour
         YandexGame.RewVideoShow(4);
         GetComponent<Animator>().SetTrigger("end");
         
-        yield return new WaitForSeconds(2f);
+        YandexGame.SaveProgress();
+        yield return new WaitForSeconds(1f);
 
         SceneManager.LoadScene(0);
     }
@@ -29,9 +30,12 @@ public class AfterGameBanner : MonoBehaviour
     public IEnumerator CloseBannerIEnumerator()
     {
         GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins);
-        GameManager.Instance.LocalCoins = 0;
-
-        yield return new WaitForSeconds(2f);
+        YandexGame.savesData.coins = GameManager.Instance.Coins;
+        
+        GetComponent<Animator>().SetTrigger("end");
+        
+        YandexGame.SaveProgress();
+        yield return new WaitForSeconds(1f);
 
         SceneManager.LoadScene(0);
     }

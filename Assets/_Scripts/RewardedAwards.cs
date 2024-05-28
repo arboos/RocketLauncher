@@ -39,7 +39,13 @@ public class RewardedAwards : MonoBehaviour
                 GameManager.Instance.MagnetLevel++;
             
             else if (id == 4)
+            {
                 GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins * 2);
+                YandexGame.savesData.coins = GameManager.Instance.Coins;
+            }
+
+            YandexGame.SaveProgress();
         }
+        
     
     }

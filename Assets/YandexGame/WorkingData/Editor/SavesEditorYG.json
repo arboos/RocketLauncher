@@ -1,5 +1,5 @@
 {
-    "idSave": 26,
+    "idSave": 54,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -10,10 +10,10 @@
         true,
         false
     ],
-    "lastFlag": 542,
+    "lastFlag": 6,
     "bestFlag": 3445,
-    "coins": 946,
-    "force": 6,
+    "coins": 227,
+    "force": 7,
     "fuel": 8,
-    "magnet": 6
+    "magnet": 7
 }
