@@ -38,10 +38,10 @@ public class SaverData : MonoBehaviour
         UIManager.Instance.preciousSlider.value = YandexGame.savesData.lastFlag / 5000f;
         
         RecordManager.Instance.PreviousLaunchLine.DistanceText.text =
-            YandexGame.savesData.lastFlag + "m";
+            YandexGame.savesData.lastFlag + 9 + "m";
 
         RecordManager.Instance.BestRecordLine.DistanceText.text =
-            YandexGame.savesData.bestFlag + "m";
+            YandexGame.savesData.bestFlag + 9 + "m";
 
         if (YandexGame.savesData.bestFlag <= -150f)
         {
@@ -78,7 +78,6 @@ public class SaverData : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        YandexGame.ResetSaveProgress();
         YandexGame.SaveProgress();
     }
 }

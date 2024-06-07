@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class SoundsBaseCollection : MonoBehaviour
     public AudioSource ringSound;
     public AudioSource bubbleSound;
     public AudioSource coinSound;
+    public AudioSource menuSound;
+    public AudioSource gameplaySound;
     
     
     private void Awake()
@@ -34,8 +37,16 @@ public class SoundsBaseCollection : MonoBehaviour
         Button[] buttons = GameObject.FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None); //Add click sound to all buttons
     }
 
+    private void Start()
+    {
+        menuSound.Play();
+        gameplaySound.Stop();
+    }
+
     private void SceneManagerOnactiveSceneChanged(Scene arg0, Scene arg1)
     {
         Button[] buttons = GameObject.FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None); //Add click sound to all buttons
+        menuSound.Play();
+        gameplaySound.Stop();
     }
 }

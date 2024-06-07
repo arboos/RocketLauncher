@@ -1,7 +1,7 @@
 {
-    "idSave": 443,
+    "idSave": 562,
     "isFirstSession": false,
-    "language": "ru",
+    "language": "en",
     "promptDone": false,
     "money": 1,
     "newPlayerName": "Hello!",
@@ -10,9 +10,9 @@
         true,
         false
     ],
-    "lastFlag": -200,
-    "bestFlag": -200,
-    "coins": 20,
+    "lastFlag": 348,
+    "bestFlag": 487,
+    "coins": 294,
     "force": 1,
     "fuel": 1,
     "magnet": 1

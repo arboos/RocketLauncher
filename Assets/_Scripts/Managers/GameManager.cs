@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         movement = context.ReadValue<Vector2>();
         if (!Gameplay)
         {
-            Gameplay = true;
+            MenuManager.Instance.StartGameplay();
             MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
         }
     }

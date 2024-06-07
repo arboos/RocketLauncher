@@ -17,6 +17,7 @@ public class Coin : MonoBehaviour
         }
         ScoreGridManager.Instance.AddScore(25, "Монета", "Coin", "Para");
         GameManager.Instance.AddLocalCoins(10);
+        SoundsBaseCollection.Instance.coinSound.Play();
         Destroy(gameObject);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using InstantGamesBridge;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using YG;
 
@@ -39,6 +40,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Sprite ActiveButton;
     [SerializeField] private Sprite DisabledButton;
 
+    [SerializeField] private AudioMixer mixer;
+    
+    [SerializeField] private GameObject SoundOnB;
+    [SerializeField] private GameObject SoundOffB;
+
     private Button[] Buttons;
     
     private void Start()
@@ -52,8 +58,31 @@ public class MenuManager : MonoBehaviour
         ForceBuyAdv.onClick.AddListener(delegate { RewardedButton(1); UpdateMenuUI(); });
         FuelBuyAdv.onClick.AddListener(delegate { RewardedButton(2); UpdateMenuUI(); });
         MagnetBuyAdv.onClick.AddListener(delegate { RewardedButton(3); UpdateMenuUI(); });
+
+        float tempVolume;
+        mixer.GetFloat("mainVolume", out tempVolume);
+        if (tempVolume < -10f)
+        {
+            SoundOnB.SetActive(true);
+            SoundOffB.SetActive(false);
+        }
+        else
+        {
+            SoundOnB.SetActive(false);
+            SoundOffB.SetActive(true);
+        }
         
         Invoke("UpdateMenuUI", 0.1f);
+    }
+
+    public void SoundOff()
+    {
+        mixer.SetFloat("mainVolume", -80f);
+    }
+    
+    public void SoundOn()
+    {
+        mixer.SetFloat("mainVolume", 0);
     }
 
     public void RewardedButton(int rewardID)
@@ -128,6 +157,7 @@ public class MenuManager : MonoBehaviour
             ForceBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
             ForceBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
             ForceBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.ForceLevel - 1].ToString().ToString();
+            ForceBuyAdv.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.ForceLevel - 1].ToString().ToString();
         }
         
         if (GameManager.Instance.FuelLevel >= 10)
@@ -138,6 +168,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             FuelBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.FuelLevel - 1].ToString().ToString();
+            FuelBuyAdv.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.FuelLevel - 1].ToString().ToString();
             FuelBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
             FuelBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
         }
@@ -152,6 +183,7 @@ public class MenuManager : MonoBehaviour
         {
             
             MagnetBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.MagnetLevel - 1].ToString().ToString();
+            MagnetBuyAdv.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.MagnetLevel - 1].ToString().ToString();
             MagnetBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
             MagnetBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
         }
@@ -212,6 +244,8 @@ public class MenuManager : MonoBehaviour
     {
         GameManager.Instance.Gameplay = true;
         MissileController.Instance.CurrentFuel = 9 + (2 * GameManager.Instance.FuelLevel);
+        SoundsBaseCollection.Instance.menuSound.Stop();
+        SoundsBaseCollection.Instance.gameplaySound.Play();
     }
     
 }
