@@ -87,7 +87,7 @@ public class MissileController : MonoBehaviour
         //UI Actions
         UIManager.Instance.Gameplay.gameObject.SetActive(true);
         UIManager.Instance.Menu.gameObject.SetActive(false);
-        ScoreGridManager.Instance.AddScore(100, "Launch!");
+        ScoreGridManager.Instance.AddScore(100, "Запуск!", "Launch!", "Çalıştırmak");
         
         //Particle Actions
         burnParticleSystem.Stop();
@@ -120,7 +120,7 @@ public class MissileController : MonoBehaviour
         
         UIManager.Instance.AfterGameBanner.SetActive(true);
         UIManager.Instance.BannerCoins.text = GameManager.Instance.LocalCoins.ToString();
-        UIManager.Instance.BannerCoinsDouble.text = (GameManager.Instance.LocalCoins * 2).ToString() + " Coins!";
+        UIManager.Instance.BannerCoinsDouble.text = (GameManager.Instance.LocalCoins * 2).ToString();
         UIManager.Instance.BannerDistance.text = (GameManager.Instance.Distance / 10).ToString() + "m";
         
         

@@ -5,10 +5,12 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject Gameplay;
+    public GameObject MobileInput;
     public GameObject Menu;
     
     public TextMeshProUGUI distanceText;
@@ -37,6 +39,18 @@ public class UIManager : MonoBehaviour
             Instance = this;
         }
         distanceText.text = "0";
+    }
+
+    private void Start()
+    {
+        if (YandexGame.EnvironmentData.isMobile)
+        {
+            MobileInput.SetActive(true);
+        }
+        else
+        {
+            MobileInput.SetActive(false);
+        }
     }
 
     private void Update()

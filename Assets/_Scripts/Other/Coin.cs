@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
                 Time.deltaTime * 200f);
             yield return new WaitForEndOfFrame();
         }
-        ScoreGridManager.Instance.AddScore(25, "Coin");
+        ScoreGridManager.Instance.AddScore(25, "Монета", "Coin", "Para");
         GameManager.Instance.AddLocalCoins(10);
         Destroy(gameObject);
     }
