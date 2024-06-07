@@ -9,7 +9,22 @@ using YG;
 
 public class MenuManager : MonoBehaviour
 {
-    private int[] Prices = new[] { 20, 40, 80, 120, 240, 400, 650, 880, 1020, 1420 };
+
+    public static MenuManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    private int[] Prices = new[] { 20, 40, 80, 120, 240, 400, 650, 880, 1020, 1420};
 
     [SerializeField] private Button ForceBuy;
     [SerializeField] private Button FuelBuy;
@@ -34,9 +49,9 @@ public class MenuManager : MonoBehaviour
         FuelBuy.onClick.AddListener(delegate { BoostFuel(); });
         MagnetBuy.onClick.AddListener(delegate { BoostMagnet(); });
         
-        ForceBuyAdv.onClick.AddListener(delegate { RewardedButton(1); });
-        FuelBuyAdv.onClick.AddListener(delegate { RewardedButton(2); });
-        MagnetBuyAdv.onClick.AddListener(delegate { RewardedButton(3); });
+        ForceBuyAdv.onClick.AddListener(delegate { RewardedButton(1); UpdateMenuUI(); });
+        FuelBuyAdv.onClick.AddListener(delegate { RewardedButton(2); UpdateMenuUI(); });
+        MagnetBuyAdv.onClick.AddListener(delegate { RewardedButton(3); UpdateMenuUI(); });
         
         Invoke("UpdateMenuUI", 0.1f);
     }
@@ -99,7 +114,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void UpdateMenuUI()
+    public void UpdateMenuUI()
     {
         coinsText.text = GameManager.Instance.Coins.ToString();
 
@@ -111,6 +126,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             ForceBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
+            ForceBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.ForceLevel.ToString();
             ForceBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.ForceLevel - 1].ToString().ToString();
         }
         
@@ -123,6 +139,7 @@ public class MenuManager : MonoBehaviour
         {
             FuelBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.FuelLevel - 1].ToString().ToString();
             FuelBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
+            FuelBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.FuelLevel.ToString();
         }
         
         if (GameManager.Instance.MagnetLevel >= 10)
@@ -135,7 +152,7 @@ public class MenuManager : MonoBehaviour
         {
             
             MagnetBuy.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Prices[GameManager.Instance.MagnetLevel - 1].ToString().ToString();
-        
+            MagnetBuyAdv.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
             MagnetBuy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.MagnetLevel.ToString();
         }
 

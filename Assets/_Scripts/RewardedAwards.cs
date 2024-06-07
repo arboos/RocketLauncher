@@ -31,24 +31,28 @@ public class RewardedAwards : MonoBehaviour
             {
                 GameManager.Instance.ForceLevel++;
                 YandexGame.savesData.force = GameManager.Instance.ForceLevel;
+                MenuManager.Instance.UpdateMenuUI();
             }
             
             else if (id == 2)
             {
                 GameManager.Instance.FuelLevel++;
                 YandexGame.savesData.fuel = GameManager.Instance.FuelLevel;
+                MenuManager.Instance.UpdateMenuUI();
             }
 
             else if (id == 3)
             {
                 GameManager.Instance.MagnetLevel++;
                 YandexGame.savesData.magnet = GameManager.Instance.MagnetLevel;
+                MenuManager.Instance.UpdateMenuUI();
             }
 
             else if (id == 4)
             {
                 GameManager.Instance.AddCoins(GameManager.Instance.LocalCoins * 2);
                 YandexGame.savesData.coins = GameManager.Instance.Coins;
+                MenuManager.Instance.UpdateMenuUI();
             }
 
             YandexGame.SaveProgress();

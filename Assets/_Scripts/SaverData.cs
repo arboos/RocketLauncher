@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using YG;
@@ -35,15 +36,23 @@ public class SaverData : MonoBehaviour
         //UI Lines
         UIManager.Instance.bestSlider.value = YandexGame.savesData.bestFlag / 5000f;
         UIManager.Instance.preciousSlider.value = YandexGame.savesData.lastFlag / 5000f;
-
+        
         RecordManager.Instance.PreviousLaunchLine.DistanceText.text =
             YandexGame.savesData.lastFlag + "m";
 
         RecordManager.Instance.BestRecordLine.DistanceText.text =
             YandexGame.savesData.bestFlag + "m";
 
-        UIManager.Instance.BestScoreDATA.text = YandexGame.savesData.bestFlag + "m";
-        UIManager.Instance.PreviousScoreDATA.text = YandexGame.savesData.lastFlag + "m";
+        if (YandexGame.savesData.bestFlag <= -150f)
+        {
+            UIManager.Instance.BestScoreDATA.text =  "0m";
+            UIManager.Instance.PreviousScoreDATA.text = "0m";
+        }
+        else
+        {
+            UIManager.Instance.BestScoreDATA.text = YandexGame.savesData.bestFlag + 9 + "m";
+            UIManager.Instance.PreviousScoreDATA.text = YandexGame.savesData.lastFlag + 9 + "m";
+        }
 
         //Gameplay
         GameManager.Instance.Coins = YandexGame.savesData.coins;
@@ -64,6 +73,12 @@ public class SaverData : MonoBehaviour
         //YandexGame.savesData.money = money;
 
         // Теперь остаётся сохранить данные
+        YandexGame.SaveProgress();
+    }
+
+    private void OnApplicationQuit()
+    {
+        YandexGame.ResetSaveProgress();
         YandexGame.SaveProgress();
     }
 }
