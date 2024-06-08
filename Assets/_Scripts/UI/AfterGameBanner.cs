@@ -19,7 +19,7 @@ public class AfterGameBanner : MonoBehaviour
         YandexGame.SaveProgress();
         yield return new WaitForSeconds(1f);
 
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
     }
 
     public void CloseBanner()

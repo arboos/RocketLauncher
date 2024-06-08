@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using YG;
 
 public class RewardedAwards : MonoBehaviour
@@ -18,15 +19,16 @@ public class RewardedAwards : MonoBehaviour
         }
     }
 
-    // Подписываемся на событие открытия рекламы в OnEnable
+        // Подписываемся на событие открытия рекламы в OnEnable
         private void OnEnable() => YandexGame.RewardVideoEvent += Rewarded;
 
-// Отписываемся от события открытия рекламы в OnDisable
+        // Отписываемся от события открытия рекламы в OnDisable
         private void OnDisable() => YandexGame.RewardVideoEvent -= Rewarded;
 
 // Подписанный метод получения награды
         void Rewarded(int id)
         {
+            Time.timeScale = 0f;
             if (id == 1)
             {
                 GameManager.Instance.ForceLevel++;
@@ -56,6 +58,7 @@ public class RewardedAwards : MonoBehaviour
             }
 
             YandexGame.SaveProgress();
+            SceneManager.LoadScene(0);
         }
         
     
