@@ -512,6 +512,7 @@ namespace YG
             OpenFullscreenAd.Invoke();
             OpenFullAdEvent?.Invoke();
             nowFullAd = true;
+            Time.timeScale = 0f;
         }
 
         public static Action CloseFullAdEvent;
@@ -521,6 +522,9 @@ namespace YG
             CloseFullscreenAd.Invoke();
             CloseFullAdEvent?.Invoke();
             timerShowAd = 0;
+
+            Time.timeScale = 1f;
+
 #if !UNITY_EDITOR
             if (wasShown == "true")
             {
@@ -535,6 +539,7 @@ namespace YG
                 }
                 else Message("Реклама не была показана. Следующий запрос через: " + infoYG.fullscreenAdInterval);
             }
+
 #endif
         }
         public void CloseFullAd() => CloseFullAd("true");
@@ -562,6 +567,7 @@ namespace YG
             OpenVideoAd.Invoke();
             nowVideoAd = true;
             timeOnOpenRewardedAds = Time.realtimeSinceStartup;
+            Time.timeScale = 0f;
         }
 
         public static Action CloseVideoEvent;
@@ -583,6 +589,8 @@ namespace YG
             }
 
             rewardAdResult = RewardAdResult.None;
+            SceneManager.LoadScene(0);
+            Time.timeScale = 1f;
         }
 
         public static Action<int> RewardVideoEvent;
@@ -620,6 +628,8 @@ namespace YG
                 else
                     ErrorVideo();
             }
+
+            Time.timeScale = 0;
         }
 
         public static Action ErrorVideoEvent;

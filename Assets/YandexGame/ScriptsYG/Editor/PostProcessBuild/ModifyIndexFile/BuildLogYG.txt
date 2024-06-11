@@ -1,2 +1,2 @@
-Build path: C:/UnityBuilds/RocketLaucnher/Test/Release_E
-Build number: 6
+Build path: C:/UnityBuilds/RocketLaucnher/Release/A
+Build number: 11

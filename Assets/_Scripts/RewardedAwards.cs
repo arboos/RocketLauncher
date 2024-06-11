@@ -58,7 +58,7 @@ public class RewardedAwards : MonoBehaviour
             }
 
             YandexGame.SaveProgress();
-            SceneManager.LoadScene(0);
+            
         }
         
     

@@ -63,5 +63,7 @@ public class AdNotificationYG : MonoBehaviour
         {
             StopCoroutine(closeNotifCoroutine);
         }
+
+        Time.timeScale = 0;
     }
 }
